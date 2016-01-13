@@ -1,0 +1,31 @@
+{
+  "name": "trackmytriesapi",
+  "version": "1.0.0",
+  "description": "Track each 'try' and monitor your progess on the PRT",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "brianGammon",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "chai": "^3.4.1",
+    "chai-as-promised": "^5.2.0",
+    "gulp": "^3.9.0",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-load-plugins": "^1.1.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-nodemon": "^2.0.4",
+    "gulp-watch": "^4.3.5",
+    "jsonwebtoken": "^5.4.1",
+    "mongodb-migrate": "^1.2.3",
+    "mongoose": "^4.3.0",
+    "nconf": "^0.8.2",
+    "restify": "^4.0.3",
+    "restify-router": "^0.2.1",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
+  }
+}

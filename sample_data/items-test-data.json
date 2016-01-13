@@ -1,0 +1,569 @@
+[
+  {
+    "user": "b@trackmytries.com",
+    "category": "Pull Ups",
+    "itemDateTime": "2012-08-06T05:00:00Z",
+    "valueNumber": 0,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Pull Ups",
+    "itemDateTime": "2012-08-17T05:00:00Z",
+    "valueNumber": 0,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Pull Ups",
+    "itemDateTime": "2012-12-03T05:00:00Z",
+    "valueNumber": 1,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Pull Ups",
+    "itemDateTime": "2013-01-07T05:00:00Z",
+    "valueNumber": 3,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Pull Ups",
+    "itemDateTime": "2013-02-04T05:00:00Z",
+    "valueNumber": 3,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Pull Ups",
+    "itemDateTime": "2013-05-15T05:00:00Z",
+    "valueNumber": 4,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Pull Ups",
+    "itemDateTime": "2015-05-13T05:00:00Z",
+    "valueNumber": 3,
+    "notes": "Did 3.5"
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-08-06T05:00:00Z",
+    "valueNumber": 20,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-08-17T05:00:00Z",
+    "valueNumber": 20,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-08-31T05:00:00Z",
+    "valueNumber": 30,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-09-23T05:00:00Z",
+    "valueNumber": 40,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-10-01T05:00:00Z",
+    "valueNumber": 48,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-10-12T05:00:00Z",
+    "valueNumber": 54,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-10-20T05:00:00Z",
+    "valueNumber": 50,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-11-05T05:00:00Z",
+    "valueNumber": 55,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-12-03T05:00:00Z",
+    "valueNumber": 57,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2013-01-07T05:00:00Z",
+    "valueNumber": 58,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2013-02-04T05:00:00Z",
+    "valueNumber": 59,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2013-03-23T05:00:00Z",
+    "valueNumber": 60,
+    "notes": "At home"
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2014-08-15T05:00:00Z",
+    "valueNumber": 40,
+    "notes": "First attempt in over a year"
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2015-05-13T05:00:00Z",
+    "valueNumber": 52,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2015-09-28T05:00:00Z",
+    "valueNumber": 59,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-08-06T05:00:00Z",
+    "valueNumber": 4,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-08-17T05:00:00Z",
+    "valueNumber": 9,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-08-31T05:00:00Z",
+    "valueNumber": 13,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-09-16T05:00:00Z",
+    "valueNumber": 30,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-09-23T05:00:00Z",
+    "valueNumber": 34,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-10-01T05:00:00Z",
+    "valueNumber": 36,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-10-12T05:00:00Z",
+    "valueNumber": 26,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-10-20T05:00:00Z",
+    "valueNumber": 40,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-11-01T05:00:00Z",
+    "valueNumber": 43,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-11-05T05:00:00Z",
+    "valueNumber": 46,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-11-08T05:00:00Z",
+    "valueNumber": 48,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-11-17T05:00:00Z",
+    "valueNumber": 45,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-12-03T05:00:00Z",
+    "valueNumber": 52,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-12-20T05:00:00Z",
+    "valueNumber": 52,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-12-24T05:00:00Z",
+    "valueNumber": 48,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-01-03T05:00:00Z",
+    "valueNumber": 55,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-01-04T05:00:00Z",
+    "valueNumber": 52,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-01-07T05:00:00Z",
+    "valueNumber": 54,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-01-26T05:00:00Z",
+    "valueNumber": 55,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-02-04T05:00:00Z",
+    "valueNumber": 49,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-02-21T05:00:00Z",
+    "valueNumber": 45,
+    "notes": "Did sit ups at end of tough Ab day workout."
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-03-01T05:00:00Z",
+    "valueNumber": 57,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-03-07T05:00:00Z",
+    "valueNumber": 45,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-03-23T05:00:00Z",
+    "valueNumber": 60,
+    "notes": "At home "
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-04-04T05:00:00Z",
+    "valueNumber": 63,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2014-08-15T05:00:00Z",
+    "valueNumber": 27,
+    "notes": "First 2-minute timed sit ups in over a year"
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2014-11-28T05:00:00Z",
+    "valueNumber": 40,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2015-03-27T05:00:00Z",
+    "valueNumber": 52,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2015-05-14T05:00:00Z",
+    "valueNumber": 43,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2015-05-15T05:00:00Z",
+    "valueNumber": 50,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2015-05-21T05:00:00Z",
+    "valueNumber": 54,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2015-09-28T05:00:00Z",
+    "valueNumber": 56,
+    "notes": ""
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "1.5 Mile Run",
+    "itemDateTime": "2012-08-06T05:00:00Z",
+    "valueTime": "16:58"
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "1.5 Mile Run",
+    "itemDateTime": "2012-08-17T05:00:00Z",
+    "valueTime": "15:08"
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "1.5 Mile Run",
+    "itemDateTime": "2012-10-12T05:00:00Z",
+    "valueTime": "13:48"
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "1.5 Mile Run",
+    "itemDateTime": "2012-12-03T05:00:00Z",
+    "valueTime": "13:00"
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "1.5 Mile Run",
+    "itemDateTime": "2013-01-07T05:00:00Z",
+    "valueTime": "11:22"
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "1.5 Mile Run",
+    "itemDateTime": "2013-02-04T05:00:00Z",
+    "valueTime": "10:53"
+  },
+  {
+    "user": "b@trackmytries.com",
+    "category": "1.5 Mile Run",
+    "itemDateTime": "2015-05-13T05:00:00Z",
+    "valueTime": "12:08"
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-08-06T05:00:00Z",
+    "valueNumber": 30,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-09-23T05:00:00Z",
+    "valueNumber": 30,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-10-20T05:00:00Z",
+    "valueNumber": 30,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-11-17T05:00:00Z",
+    "valueNumber": 45,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Push Ups",
+    "itemDateTime": "2012-12-03T05:00:00Z",
+    "valueNumber": 45,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-08-06T05:00:00Z",
+    "valueNumber": 24,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-08-17T05:00:00Z",
+    "valueNumber": 40,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-09-16T05:00:00Z",
+    "valueNumber": 50,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-09-23T05:00:00Z",
+    "valueNumber": 53,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-10-20T05:00:00Z",
+    "valueNumber": 61,
+    "notes": "Didn't go all the way back"
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-11-01T05:00:00Z",
+    "valueNumber": 43,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-11-17T05:00:00Z",
+    "valueNumber": 63,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-11-28T05:00:00Z",
+    "valueNumber": 65,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-12-03T05:00:00Z",
+    "valueNumber": 55,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2012-12-25T05:00:00Z",
+    "valueNumber": 63,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-01-31T05:00:00Z",
+    "valueNumber": 66,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-01-31T05:00:00Z",
+    "valueNumber": 66,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-02-02T05:00:00Z",
+    "valueNumber": 72,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2013-02-02T05:00:00Z",
+    "valueNumber": 72,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "Sit Ups",
+    "itemDateTime": "2015-05-13T05:00:00Z",
+    "valueNumber": 82,
+    "notes": null
+  },
+  {
+    "user": "r@trackmytries.com",
+    "category": "1.5 Mile Run",
+    "itemDateTime": "2015-05-13T05:00:00Z",
+    "valueTime": "12:45",
+    "notes": null
+  }
+]

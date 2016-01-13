@@ -1,0 +1,3 @@
+node ./node_modules/mongodb-migrate -runmm -cfg config.json -dbn mongodb create seed-users
+node ./node_modules/mongodb-migrate -runmm -cfg config.json -dbn mongodb up
+node ./node_modules/mongodb-migrate -runmm -cfg config.json -dbn mongodb down

@@ -1,0 +1,9 @@
+{
+  "name": "trackmytriesapi",
+  "PORT": 8080,
+  "JWT_SECRET":"thisIsTheDefaultFromTheConfigFile",
+  "mongodb": {
+    "host": "localhost",
+    "db": "trackmytries-dev"
+  }
+}
