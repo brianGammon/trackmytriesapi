@@ -17,7 +17,7 @@ function mochaPipe() {
 
 gulp.task('default', function(){
   $.nodemon({
-    script: 'app.js',
+    script: 'app/server.js',
     ext: 'js',
     env: {
       PORT: 8080,

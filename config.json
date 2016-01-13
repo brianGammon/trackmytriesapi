@@ -4,6 +4,9 @@
   "JWT_SECRET":"thisIsTheDefaultFromTheConfigFile",
   "mongodb": {
     "host": "localhost",
-    "db": "trackmytries-dev"
+    "db": "trackmytries-dev",
+    "port": "ignoredOnLocalhost",
+    "username": "ignoredOnLocalhost",
+    "password": "ignoredOnLocalhost"
   }
 }

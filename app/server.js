@@ -4,7 +4,8 @@ var restify = require('restify'),
     util = require('util');
 
 // Loap up our config settings, args & env override the json file
-nconf.argv().env().file({ file: './config.json' });
+console.log(__dirname);
+nconf.argv().env().file({ file: 'config.json' });
 
 // Set up the connection to Mongolab, based on config settings
 var dbconf = nconf.get('mongodb');

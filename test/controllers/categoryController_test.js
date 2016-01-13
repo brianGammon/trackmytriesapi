@@ -64,7 +64,7 @@ describe('Category Controller Tests', function () {
       this.save = saveStub
     };
 
-    controller = require('../../controllers/categoryController');
+    controller = require('../../app/controllers/categoryController');
 
     next.reset();
     saveStub.reset();
