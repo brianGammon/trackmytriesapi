@@ -3,3 +3,4 @@ node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn migrateLocal up
 node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn migrateLocal down
 node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn migrateLab up
 node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn migrateLab down
+node ./node_modules/mongodb-migrate -runmm -dbc '{ "host": "localhost", "db": "trackmytries-dev" }' down
