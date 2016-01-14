@@ -1,3 +1,5 @@
-node ./node_modules/mongodb-migrate -runmm -cfg config.json -dbn mongodb create seed-users
-node ./node_modules/mongodb-migrate -runmm -cfg config.json -dbn mongodb up
-node ./node_modules/mongodb-migrate -runmm -cfg config.json -dbn mongodb down
+node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn mongodb create seed-users
+node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn migrateLocal up
+node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn migrateLocal down
+node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn migrateLab up
+node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn migrateLab down

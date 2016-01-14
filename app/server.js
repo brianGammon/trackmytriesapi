@@ -1,45 +1,34 @@
 var restify = require('restify'),
+    app = restify.createServer(),
     mongoose = require('mongoose'),
-    nconf = require('nconf'),
-    util = require('util');
+    config = require('./config.js'),
+    Category = require('./models/categoryModel'),
+    Item = require('./models/itemModel'),
+    User = require('./models/userModel'),
+    categoryRouter,
+    itemRouter,
+    userRouter;
 
-// Loap up our config settings, args & env override the json file
-console.log(__dirname);
-nconf.argv().env().file({ file: 'config.json' });
+// Connect to Mongo
+mongoose.connect(config.connectionString);
 
-// Set up the connection to Mongolab, based on config settings
-var dbconf = nconf.get('mongodb');
-var connectionString = 'mongodb://localhost/' + dbconf.db;
-if (dbconf.host !== 'localhost') {
-  connectionString = util.format(
-    'mongodb://%s:%s@%s:%s/%s', dbconf.username, dbconf.password, dbconf.host, dbconf.port, dbconf.db);
-}
-var db = mongoose.connect(connectionString);
-
-var Category = require('./models/categoryModel');
-var Item = require('./models/itemModel');
-var User = require('./models/userModel');
-
-var app = restify.createServer();
-
+// Set up CORS, prep app
 app.pre(restify.pre.sanitizePath());
-
-// Set up CORS
 restify.CORS.ALLOW_HEADERS.push('x-access-token');
 app.use(restify.CORS());
 app.use(restify.fullResponse());
-
 app.use(restify.queryParser());
 app.use(restify.bodyParser());
 
-var categoryRouter = require('./routes/categoryRoutes')(app, Category, User);
-var itemRouter = require('./routes/itemRoutes')(Item, User, Category);
-var userRouter = require('./routes/userRoutes')(User);
-
+// Routing
+categoryRouter = require('./routes/categoryRoutes')(Category, User);
+itemRouter = require('./routes/itemRoutes')(Item, User, Category);
+userRouter = require('./routes/userRoutes')(User);
 categoryRouter.applyRoutes(app, '/categories');
 itemRouter.applyRoutes(app, '/items');
 userRouter.applyRoutes(app, '/user');
 
+// Hello world route
 app.get('/',function(req, res){
     res.send("Welcome to the Track My Tries API");
 });
@@ -53,6 +42,7 @@ app.get('/',function(req, res){
 //   });
 // });
 
-app.listen(nconf.get('PORT'), function(){
-    console.log('%s is running on %s', nconf.get('name'), app.url);
+// Start me up
+app.listen(config.serverPort, function(){
+    console.log('%s is running on %s', config.appName, app.url);
 });

@@ -1,10 +1,9 @@
 var userController = function(User){
   var jwt = require('jsonwebtoken'),
       bcrypt = require('bcryptjs'),
-      nconf = require('nconf');
+      config = require('../config.js');
 
-  var superSecret = nconf.get('JWT_SECRET');
-  console.log(superSecret);
+  console.log(config.secretKey);
 
   function hashPassword(password, callback) {
     bcrypt.genSalt(10, function(err, salt) {
@@ -22,7 +21,7 @@ var userController = function(User){
       delete user.password;
     }
 
-    var token = jwt.sign(user, superSecret, { expiresIn: "30days" })
+    var token = jwt.sign(user, config.secretKey, { expiresIn: "30days" })
 
     return { token: token, user: {_id: user._id, email: user.email, roles: user.roles}};
   }
@@ -148,7 +147,7 @@ var userController = function(User){
   		return res.send(403, "No access token provided.");
   	}
 
-		jwt.verify(token, superSecret, function(err, decoded) {
+		jwt.verify(token, config.secretKey, function(err, decoded) {
 			if (err) {
 				return next(err);
 			}

@@ -1,4 +1,4 @@
-var categoryRoutes = function(app, Category, User){
+var categoryRoutes = function(Category, User){
   var Router = require('restify-router').Router;
   var categoryRouter = new  Router();
 
@@ -8,7 +8,6 @@ var categoryRoutes = function(app, Category, User){
   categoryRouter.post('/', userController.requireSignIn, categoryController.insert)
   categoryRouter.get('/', categoryController.getAll);
 
-  // app.use('/categories/:categoryId',categoryController.getById);
   categoryRouter.get('/:categoryId', categoryController.getById, function(req,res){
     res.json(req.category);
   });

@@ -15,14 +15,10 @@ function mochaPipe() {
   return $.mocha({ reporter: 'spec', growl: true });
 }
 
-gulp.task('default', function(){
+gulp.task('default', ['unitTest'], function() {
   $.nodemon({
     script: 'app/server.js',
     ext: 'js',
-    env: {
-      PORT: 8080,
-      JWT_SECRET: 'thisIsFromTheEnvSettings.InGulpFile'
-    },
     ignore: ignorePaths
   })
   .on('restart',function(){

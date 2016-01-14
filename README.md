@@ -23,13 +23,13 @@ npm install -g gulp
 Clone the repo into your projects directory:
 
 ```
-git clone https://brianGammon@bitbucket.org/brianGammon/prttrackerapi.git
-cd prttrackerapi
+git clone https://github.com/brianGammon/trackmytriesapi.git
+cd trackmytriesapi
 
 
 ```
 
-Next, install the dependencies and launch:
+Next, install the dependencies and launch the server:
 
 ```
 npm install
@@ -46,27 +46,19 @@ Verify the API is up by browsing to:
 ### Unit tests
 Unit tests are automatically run when ```gulp``` is used to start up the development environment.
 
-
 ### End to end tests
 
 TBD
 
-## Post install
-
-### Migrations
+## Migrations
 Run the migrations to seed your MongoDB instance with sample data
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+```
+node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn mongoLocal up
+```
 
 ## Authors
 
-* **Brian Gammon** - *Initial work* - [Bitbucket](https://bitbucket.org/brianGammon)
+* **Brian Gammon** - *Initial work* - [GitHub](https://github.com/brianGammon)
 
 ## License
 
@@ -74,4 +66,4 @@ This project is licensed under the MIT License
 
 ## Acknowledgments
 
-* Inspired by a desire to learn NodeJS
+* Inspired by a desire to learn NodeJS, and gain experience in JavaScript
