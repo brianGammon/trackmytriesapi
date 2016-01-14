@@ -13,7 +13,7 @@ Make sure your system has the following foundational software installed:
 * NodeJS
 * MongoDB, or a Mongolab instance
 
-Next, globally install bower and gulp:
+Next, globally install gulp:
 ```
 npm install -g gulp
 ```
@@ -39,12 +39,15 @@ gulp
 The default ```gulp``` task will build, lint, run all unit tests.
 
 Verify the API is up by browsing to:
-```curl http://localhost:3000/```
+```http://localhost:3000/```
 
 ## Running the tests
 
 ### Unit tests
-Unit tests are automatically run when ```gulp``` is used to start up the development environment.
+Unit tests are automatically run when ```gulp``` is used to start up the development environment. Use can also run the unit tests manually by running:
+```
+gulp test
+```
 
 ### End to end tests
 
