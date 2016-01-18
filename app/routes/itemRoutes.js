@@ -11,6 +11,7 @@ var itemRoutes = function(Item, User, Category){
 
   // Route for pulling personal records
   itemRouter.get('/records', userController.requireSignIn, itemController.getPersonalRecords);
+  itemRouter.get('/stats', userController.requireSignIn, itemController.getStats);
 
   // Item by ID routes
   itemRouter.get('/:itemId', userController.requireSignIn, itemController.getItemById, itemController.requireAuthorization, function(req,res){
