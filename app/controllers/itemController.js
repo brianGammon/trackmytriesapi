@@ -67,63 +67,6 @@ var itemController = function(Item, Category){
     });
   }
 
-  var getPersonalRecords = function (req, res, next) {
-    var query = {};
-    if (req.query.categoryId) {
-      query._id = req.query.categoryId;
-    }
-    Category.find(query,function(err, categories) {
-      if (err) {
-        return next(err);
-      }
-      if (!categories || categories.length === 0) {
-        return next(new Error('Invalid category or no categories found'));
-      }
-
-      // Loop over the category or categories and query Item for the best
-      var loopCounter = 0;
-      var prs = [];
-      categories.forEach(function(category) {
-        loopCounter++;
-        var sortDirection = -1,
-            query = Item.findOne({category: category._id,user: req.user._id});
-
-        // set the sort direction based on the goalType
-        if (category.goalType === 'least') {
-          sortDirection = 1;
-        }
-
-        // set the sort column based on the category dataType
-        if (category.dataType === 'time'){
-          query.sort({valueTime: sortDirection, itemDateTime: 1});
-        } else {
-          query.sort({valueNumber: sortDirection, itemDateTime: 1});
-        }
-
-        // Query for best entry in this category
-        query.populate('category').exec(function (err, bestItem) {
-          loopCounter--;
-          if (err) {
-            return next(err);
-          }
-
-          if (bestItem) {
-            prs.push(bestItem);
-          }
-
-          if (loopCounter === 0) {
-            if (prs.length === 0) {
-              prs = null;
-            } else if (prs.length === 1 && req.query.categoryId) {
-              prs = prs[0];
-            }
-            res.send(prs);
-          }
-        });
-      })
-    });
-  }
-
   var getStats = function (req, res, next) {
     var query = {};
 
@@ -224,7 +167,6 @@ var itemController = function(Item, Category){
     addItem: addItem,
     getItems: getItems,
     getItemById: getItemById,
-    getPersonalRecords: getPersonalRecords,
     getStats: getStats,
     updateItem: updateItem,
     deleteItem: deleteItem,

@@ -9,8 +9,7 @@ var itemRoutes = function(Item, User, Category){
   itemRouter.post('/', userController.requireSignIn, itemController.addItem)
   itemRouter.get('/', userController.requireSignIn, itemController.getItems);
 
-  // Route for pulling personal records
-  itemRouter.get('/records', userController.requireSignIn, itemController.getPersonalRecords);
+  // Route for pulling statistics
   itemRouter.get('/stats', userController.requireSignIn, itemController.getStats);
 
   // Item by ID routes
