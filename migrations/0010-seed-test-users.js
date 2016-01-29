@@ -17,7 +17,7 @@ exports.up = function(db, next){
         },
         {
           name: 'Thomas Palmer',
-          email: 'gammonbt@yahoo.com',
+          email: 't@trackmytries.com',
           loginType: 'fb',
           externalId: '913586432081857',
           roles: ['user']
