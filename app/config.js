@@ -20,7 +20,8 @@ nconf.argv().env().file({ file: 'env.json' })
     "MONGO_DBNAME": "trackmytries-dev",
     "MONGO_PORT": "ignoredIfLocalhost",
     "MONGO_USER": "ignoredIfLocalhost",
-    "MONGO_PWD": "ignoredIfLocalhost"
+    "MONGO_PWD": "ignoredIfLocalhost",
+    "FB_API": "https://graph.facebook.com/me?access_token=%s&fields=email,name"
   });
 
 host = nconf.get('MONGO_HOST');
@@ -39,5 +40,6 @@ module.exports = {
   appName: nconf.get('NAME'),
   serverPort: nconf.get('PORT'),
   secretKey: nconf.get('JWT_SECRET'),
+  fbApi: nconf.get('FB_API'),
   connectionString: connectionString
 };

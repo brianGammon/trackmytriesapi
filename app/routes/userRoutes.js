@@ -7,6 +7,7 @@ var userRoutes = function(User){
   userRouter.post('/password', userController.requireSignIn, userController.changePassword);
 	userRouter.post('/signup', userController.signup);
 	userRouter.post('/signin', userController.signin);
+  userRouter.post('/auth/fb', userController.authorizeFb);
 
   return userRouter;
 };

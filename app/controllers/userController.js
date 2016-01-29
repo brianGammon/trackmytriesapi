@@ -1,30 +1,11 @@
 var userController = function(User){
   var jwt = require('jsonwebtoken'),
       bcrypt = require('bcryptjs'),
-      config = require('../config.js');
+      config = require('../config.js'),
+      request = require('request'),
+      util = require('util');
 
   console.log(config.secretKey);
-
-  function hashPassword(password, callback) {
-    bcrypt.genSalt(10, function(err, salt) {
-      bcrypt.hash(password, salt, function(err, hash) {
-          callback(err, hash);
-      });
-    });
-  }
-
-  function generateJwtResponse(user) {
-    // strip the password
-    user = user.toObject();
-    if (user.password) {
-      // We don't send passwords in the token
-      delete user.password;
-    }
-
-    var token = jwt.sign(user, config.secretKey, { expiresIn: "30days" })
-
-    return { token: token, user: {_id: user._id, email: user.email, roles: user.roles}};
-  }
 
   var signup = function(req,res, next){
     if (req.body.password !== req.body.confirmPassword) {
@@ -47,7 +28,7 @@ var userController = function(User){
           newUser.password = hash;
 
           // save the user
-          newUser.save(function(err,newUser){
+          newUser.save(function (err, newUser) {
             if(err) {
               return next(err);
             }
@@ -61,7 +42,7 @@ var userController = function(User){
         });
       }
     });
-  }
+  };
 
   var signin = function (req, res, next) {
     // Look up the user
@@ -90,7 +71,7 @@ var userController = function(User){
         res.send(jwt);
       });
     });
-  }
+  };
 
   var changePassword = function (req, res, next) {
     // Validate fields
@@ -137,7 +118,7 @@ var userController = function(User){
         });
       });
     });
-  }
+  };
 
   var requireSignIn = function(req, res, next){
     // Check the header for an auth token
@@ -156,14 +137,103 @@ var userController = function(User){
 			req.user = decoded;
 			next();
 		});
+  };
+
+  var authorizeFb = function (req, res, next) {
+    var url,
+        fbInfo;
+
+    if (!req.body.accessToken) {
+      return next(new Error('No facebook access token supplied'));
+    }
+
+    url = util.format(config.fbApi, req.body.accessToken);
+
+    request(url, function (error, response, body) {
+      if (error) {
+        return next(error);
+      }
+
+      if (response.statusCode !== 200) {
+        return next(new Error('FB API returned status code: ' + response.status));
+      }
+
+      fbInfo = JSON.parse(body);
+
+      User.findOne({externalId: fbInfo.id, loginType: 'fb'}, function (err, user) {
+        if(err){
+          return next(err);
+        }
+
+        if(!user) {
+          // Need to create a new user
+          var newUser = new User({
+            name: fbInfo.name,
+            email: fbInfo.email,
+            password: 'not set',
+            loginType: 'fb',
+            externalId: fbInfo.id,
+            roles: ['user']
+          });
+
+          newUser.save(function (err, newUser) {
+            if (err) {
+              console.log(err);
+              return next(err);
+            }
+
+            // generate a jwt token
+            var jwt = generateJwtResponse(newUser);
+
+            // send the jwt, and the user
+            res.send(201, jwt);
+          });
+        } else {
+          // Generate a JWT
+          var jwt = generateJwtResponse(user);
+
+          // send the jwt along with the user object
+          res.send(jwt);
+        }
+      });
+    });
+  };
+
+  function hashPassword(password, callback) {
+    bcrypt.genSalt(10, function(err, salt) {
+      bcrypt.hash(password, salt, function(err, hash) {
+          callback(err, hash);
+      });
+    });
+  }
+
+  function generateJwtResponse(user) {
+    // strip the password
+    user = user.toObject();
+    if (user.password) {
+      // We don't send passwords in the token
+      delete user.password;
+    }
+    var token = jwt.sign(user, config.secretKey, { expiresIn: "30days" })
+    return {
+      token: token,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        loginType: user.loginType,
+        roles: user.roles
+      }
+    };
   }
 
   return {
     signup: signup,
     signin: signin,
     changePassword: changePassword,
+    authorizeFb: authorizeFb,
     requireSignIn: requireSignIn
-  }
+  };
 }
 
 module.exports = userController;

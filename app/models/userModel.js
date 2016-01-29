@@ -2,6 +2,10 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var userSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
     required: true
@@ -10,9 +14,19 @@ var userSchema = new Schema({
     type: String,
     required: true
   },
+  loginType: {
+    type: String,
+    required: true,
+    default: 'local',
+    enum: ['local','fb']
+  },
+  externalId: {
+    type: String
+  },
   roles: [{
     type: String,
-    enum: ['user','admin'],
+    required: true,
+    enum: ['user','admin']
   }]
 });
 
