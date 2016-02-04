@@ -39,7 +39,7 @@ var categoryController = function(Category) {
   var update = function(req, res, next){
     req.category.name = req.body.name;
     req.category.description = req.body.description;
-    req.category.dataType = req.body.dataType;
+    req.category.valueType = req.body.valueType;
     req.category.goalType = req.body.goalType;
     req.category.save(function(err){
       if (err) {

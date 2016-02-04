@@ -31,6 +31,12 @@ var seedDataLoader = (function(){
             }
           });
 
+          if (categoryIdFinder[0].valueType === 'duration') {
+            item.valueNumber = parseInt(item.valueTime.slice(0, 2), 10) * 60 +
+              parseInt(item.valueTime.slice(-2), 10);
+              delete item.valueTime;
+          }
+
           item.user = userFound[0]._id;
           item.category = categoryIdFinder[0]._id;
           item.itemDateTime = new Date(item.itemDateTime);

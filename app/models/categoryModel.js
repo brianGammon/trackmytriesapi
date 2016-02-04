@@ -8,13 +8,13 @@ var categorySchema = new Schema({
   description: {
     type: String
   },
-  dataType: {
+  valueType: {
     type: String,
-    enum: ['number','time']
+    enum: ['number','duration']
   },
   goalType: {
     type: String,
-    enum: ['most','least']
+    enum: ['more','less']
   }
 });
 

@@ -48,7 +48,6 @@ var itemController = function(Item, Category){
     req.item.category = req.body.category;
     req.item.itemDateTime = req.body.itemDateTime;
     req.item.valueNumber = req.body.valueNumber;
-    req.item.valueTime = req.body.valueTime;
     req.item.notes = req.body.notes;
     req.item.save(function(err,item){
       if (err) {
@@ -107,16 +106,11 @@ var itemController = function(Item, Category){
                   prQuery = Item.findOne({category: category._id,user: req.user._id});
 
               // set the sort direction based on the goalType
-              if (category.goalType === 'least') {
+              if (category.goalType === 'less') {
                 sortDirection = 1;
               }
 
-              // set the sort column based on the category dataType
-              if (category.dataType === 'time'){
-                prQuery.sort({valueTime: sortDirection, itemDateTime: 1});
-              } else {
-                prQuery.sort({valueNumber: sortDirection, itemDateTime: 1});
-              }
+              prQuery.sort({valueNumber: sortDirection, itemDateTime: 1});
 
               // Query for best entry in this category
               prQuery.exec(function (err, bestItem) {
