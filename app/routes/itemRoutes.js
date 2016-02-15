@@ -1,25 +1,25 @@
-var itemRoutes = function(Item, User, Category){
-  var Router = require('restify-router').Router;
-  var itemRouter = new  Router();
+var itemRoutes = function (Item, User, Category) {
+  var Router = require('restify-router').Router
+  var itemRouter = new Router()
 
-  var itemController = require('../controllers/itemController')(Item, Category);
-  var userController = require('../controllers/userController')(User);
+  var itemController = require('../controllers/itemController')(Item, Category)
+  var userController = require('../controllers/userController')(User)
 
   // Base routes for getting all, or creating
   itemRouter.post('/', userController.requireSignIn, itemController.addItem)
-  itemRouter.get('/', userController.requireSignIn, itemController.getItems);
+  itemRouter.get('/', userController.requireSignIn, itemController.getItems)
 
   // Route for pulling statistics
-  itemRouter.get('/stats', userController.requireSignIn, itemController.getStats);
+  itemRouter.get('/stats', userController.requireSignIn, itemController.getStats)
 
   // Item by ID routes
-  itemRouter.get('/:itemId', userController.requireSignIn, itemController.getItemById, itemController.requireAuthorization, function(req,res){
-    res.json(req.item);
+  itemRouter.get('/:itemId', userController.requireSignIn, itemController.getItemById, itemController.requireAuthorization, function (req, res) {
+    res.json(req.item)
   })
   itemRouter.put('/:itemId', userController.requireSignIn, itemController.getItemById, itemController.requireAuthorization, itemController.updateItem)
-  itemRouter.del('/:itemId', userController.requireSignIn, itemController.getItemById, itemController.requireAuthorization, itemController.deleteItem);
+  itemRouter.del('/:itemId', userController.requireSignIn, itemController.getItemById, itemController.requireAuthorization, itemController.deleteItem)
 
-  return itemRouter;
-};
+  return itemRouter
+}
 
-module.exports = itemRoutes;
+module.exports = itemRoutes

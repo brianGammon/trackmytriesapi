@@ -1,6 +1,11 @@
 # TrackMyTries API
 
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
+
 RESTful API for the TrackMyTries application. Track your fitness progress by recording every "Try" of one of the PRT exercises (Sit ups, Push up, Pull ups, or 1.5 mile run). Later version will allow users to create their own categories of Tries.
+
+https://trackmytries-dev.herokuapp.com
 
 ## Getting Started
 
@@ -36,10 +41,9 @@ npm install
 gulp
 ```
 
-The default ```gulp``` task will build, lint, run all unit tests.
+The default ```gulp``` task will build, lint, run all unit tests, and start the server using nodemon.
 
-Verify the API is up by browsing to:
-```http://localhost:3000/```
+Verify the API is up by browsing to: http://localhost:3000/
 
 ## Running the tests
 
@@ -49,6 +53,12 @@ Unit tests are automatically run when ```gulp``` is used to start up the develop
 gulp test
 ```
 
+### Coverage report
+To run all unit tests and generate a coverage report run:
+```
+gulp coverage
+```
+
 ### End to end tests
 
 TBD
@@ -56,7 +66,7 @@ TBD
 ## Migrations
 Run the migrations to seed your MongoDB instance with sample data
 ```
-node ./node_modules/mongodb-migrate -runmm -cfg env.json -dbn mongoLocal up
+node ./node_modules/mongodb-migrate -runmm -dbc '{ "host": "localhost", "db": "trackmytries-dev" }' up
 ```
 
 ## Authors

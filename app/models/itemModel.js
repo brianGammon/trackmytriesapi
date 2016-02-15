@@ -1,5 +1,5 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema
 
 var itemSchema = new Schema({
   user: {
@@ -24,6 +24,6 @@ var itemSchema = new Schema({
   notes: {
     type: String
   }
-});
+})
 
-module.exports = mongoose.model('Item', itemSchema);
+module.exports = mongoose.model('Item', itemSchema)

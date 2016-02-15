@@ -1,5 +1,5 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema
 
 var userSchema = new Schema({
   name: {
@@ -18,7 +18,7 @@ var userSchema = new Schema({
     type: String,
     required: true,
     default: 'local',
-    enum: ['local','fb']
+    enum: ['local', 'fb']
   },
   externalId: {
     type: String
@@ -26,15 +26,16 @@ var userSchema = new Schema({
   roles: [{
     type: String,
     required: true,
-    enum: ['user','admin']
+    enum: ['user', 'admin']
   }]
-});
+})
 
-userSchema.pre("save",function(next) {
-  if (this.roles.length == 0)
-    this.roles.push("user");
+userSchema.pre('save', function (next) {
+  if (this.roles.length === 0) {
+    this.roles.push('user')
+  }
 
-  next();
-});
+  next()
+})
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema)

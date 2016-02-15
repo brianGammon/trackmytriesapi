@@ -1,5 +1,5 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema
 
 var categorySchema = new Schema({
   name: {
@@ -10,12 +10,12 @@ var categorySchema = new Schema({
   },
   valueType: {
     type: String,
-    enum: ['number','duration']
+    enum: ['number', 'duration']
   },
   goalType: {
     type: String,
-    enum: ['more','less']
+    enum: ['more', 'less']
   }
-});
+})
 
-module.exports = mongoose.model('Category', categorySchema);
+module.exports = mongoose.model('Category', categorySchema)
