@@ -24,7 +24,7 @@ exports.up = function(db, next){
         }
       ];
 
-  users.insert( seedData, function(err, result) {
+  users.insert( seedData, function(err) {
     if (err) {
       return next(err);
     }
@@ -34,7 +34,10 @@ exports.up = function(db, next){
 
 exports.down = function(db, next){
   var users = db.collection('users');
-  users.remove({}, function (err, result) {
+  users.remove({}, function (err) {
+    if (err) {
+      return next(err);
+    }
     next();
   });
 };

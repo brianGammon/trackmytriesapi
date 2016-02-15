@@ -1,8 +1,9 @@
+/* globals describe, it */
 'use strict';
 /* jshint: expr:true */
-var chai = require('chai'),
-    expect = chai.expect,
-    sinon = require('sinon');
+// var chai = require('chai'),
+//     expect = chai.expect,
+//     sinon = require('sinon');
 
 describe('User Controller Tests', function () {
   describe('get() tests', function () {

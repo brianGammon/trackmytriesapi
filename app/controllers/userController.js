@@ -57,7 +57,7 @@ var userController = function(User){
 
       bcrypt.compare(req.body.password, user.password, function(err, result) {
         if (err){
-          return nex(err);
+          return next(err);
         }
 
         if (!result) {
@@ -123,10 +123,10 @@ var userController = function(User){
   var requireSignIn = function(req, res, next){
     // Check the header for an auth token
     // check header or url parameters or post parameters for token
-  	var token = (req.body ? req.body.token : null) || req.query.token || req.headers['x-access-token'];
+    var token = (req.body ? req.body.token : null) || req.query.token || req.headers['x-access-token'];
     if (!token) {
-  		return res.send(403, "No access token provided.");
-  	}
+      return res.send(403, "No access token provided.");
+    }
 
 		jwt.verify(token, config.secretKey, function(err, decoded) {
 			if (err) {

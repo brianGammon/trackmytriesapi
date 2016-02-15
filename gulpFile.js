@@ -1,10 +1,14 @@
+/* eslint node/no-unpublished-require: 0 */
 var gulp = require('gulp'),
     $ = require('gulp-load-plugins')(),
-    ignorePaths = ['node_modules/**', 'migrations/**', 'sample_data/**', 'coverage/**'];
+    nodemonIgnore = ['node_modules/**', 'migrations/**', 'sample_data/**', 'coverage/**'],
     unitTestPaths = [
       'test/**/*_test.js'
     ],
-    jsPaths = [
+    lintPaths = [
+      '**/*.js', '!node_modules/**', '!sample_data/**', '!coverage/**'
+    ],
+    watchPaths = [
       '**/*.js', '!node_modules/**', '!migrations/**', '!sample_data/**', '!coverage/**'
     ],
     coverageJsPaths = [
@@ -19,22 +23,43 @@ gulp.task('default', ['unitTest'], function() {
   $.nodemon({
     script: 'app/server.js',
     ext: 'js',
-    ignore: ignorePaths
+    ignore: nodemonIgnore
   })
   .on('restart',function(){
     console.log('Restarting...');
   });
 });
 
+gulp.task('lint', function () {
+  var formatter = require('eslint-path-formatter');
+  // var jsFilter = $.filter('**/*.js', {restore: true});
+
+  return gulp.src(lintPaths)
+    .pipe($.plumber({errorHandler: function (err) {
+      $.notify.onError({
+        title: 'Error linting at ' + err.plugin,
+        subtitle: ' ', //overrides defaults
+        message: err.message.replace(/\u001b\[.*?m/g, ''),
+        sound: ' ' //overrides defaults
+      })(err);
+
+      this.emit('end');
+    }}))
+    // .pipe(jsFilter)
+    .pipe($.eslint())
+    .pipe($.eslint.formatEach(formatter))
+    .pipe($.eslint.failOnError());
+});
+
 gulp.task('test', ['unitTest', 'watchJs']);
 
 gulp.task('watchJs', function() {
-  $.watch(jsPaths, {read: false}, function() {
+  $.watch(watchPaths, {read: false}, function() {
     gulp.start('unitTest');
   });
 });
 
-gulp.task('unitTest', function() {
+gulp.task('unitTest', ['lint'], function() {
   return gulp.src(unitTestPaths, {read: false})
     .pipe(mochaPipe());
 });

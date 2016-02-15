@@ -1,5 +1,6 @@
+/* globals describe, it, beforeEach */
 'use strict';
-/* jshint: expr:true */
+/* eslint node/no-unpublished-require: 0 */
 var chai = require('chai'),
     expect = chai.expect,
     sinon = require('sinon'),
@@ -14,7 +15,6 @@ describe('Category Controller Tests', function () {
       categories,
       Category,
       saveStub = sinon.stub(),
-      model,
       next = sinon.spy();
 
   beforeEach(function () {
@@ -58,7 +58,7 @@ describe('Category Controller Tests', function () {
       }
     ];
 
-    Category = function(category) {
+    Category = function() {
       this.find = sinon.stub()
       this.findById = sinon.stub()
       this.save = saveStub
