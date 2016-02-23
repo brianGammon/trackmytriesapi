@@ -5,8 +5,8 @@
 //     expect = chai.expect,
 //     sinon = require('sinon')
 
-describe('User Controller Tests', function () {
-  describe('get() tests', function () {
+describe('User Controller Tests', () => {
+  describe('get() tests', () => {
     it('should return all users')
 
     it('should return a single user by user ID')
@@ -14,15 +14,15 @@ describe('User Controller Tests', function () {
     it('should return 404 if requested user does not exist')
   })
 
-  describe('post() tests', function () {
+  describe('post() tests', () => {
 
   })
 
-  describe('put() tests', function () {
+  describe('put() tests', () => {
 
   })
 
-  describe('delete() tests', function () {
+  describe('delete() tests', () => {
 
   })
 })

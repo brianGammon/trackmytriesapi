@@ -1,9 +1,11 @@
-var itemRoutes = function (Item, User, Category) {
-  var Router = require('restify-router').Router
-  var itemRouter = new Router()
+'use strict'
 
-  var itemController = require('../controllers/itemController')(Item, Category)
-  var userController = require('../controllers/userController')(User)
+let itemRoutes = (Item, User, Category) => {
+  let Router = require('restify-router').Router
+  let itemRouter = new Router()
+
+  let itemController = require('../controllers/itemController')(Item, Category)
+  let userController = require('../controllers/userController')(User)
 
   // Base routes for getting all, or creating
   itemRouter.post('/', userController.requireSignIn, itemController.addItem)

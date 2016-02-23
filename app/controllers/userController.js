@@ -1,21 +1,21 @@
-var userController = function (User) {
-  var jwt = require('jsonwebtoken')
-  var bcrypt = require('bcryptjs')
-  var config = require('../config.js')
-  var request = require('request')
-  var util = require('util')
+'use strict'
+
+let userController = (User) => {
+  let jwt = require('jsonwebtoken')
+  let bcrypt = require('bcryptjs')
+  let config = require('../config.js')
 
   console.log(config.secretKey)
 
-  var signup = function (req, res, next) {
+  let signup = (req, res, next) => {
     if (req.body.password !== req.body.confirmPassword) {
       return res.send(403, 'New password and confirm new password must match.')
     }
 
-    var newUser = new User(req.body)
+    let newUser = new User(req.body)
 
     // check for uniqueness
-    User.findOne({email: req.body.email || ''}, function (err, user) {
+    User.findOne({email: req.body.email || ''}, (err, user) => {
       if (err) {
         return next(err)
       }
@@ -24,7 +24,7 @@ var userController = function (User) {
         return res.send(403, 'A user with that email address already exists')
       } else {
         // hash the password
-        hashPassword(newUser.password, function (err, hash) {
+        hashPassword(newUser.password, (err, hash) => {
           if (err) {
             return next(err)
           }
@@ -32,25 +32,25 @@ var userController = function (User) {
           newUser.password = hash
 
           // save the user
-          newUser.save(function (err, newUser) {
+          newUser.save((err, newUser) => {
             if (err) {
               return next(err)
             }
 
-            // generate a jwt token
-            var jwt = generateJwtResponse(newUser)
+            // generate a token
+            let token = generateJwtResponse(newUser)
 
-            // send the jwt, and the user
-            res.send(201, jwt)
+            // send the token, and the user
+            res.send(201, token)
           })
         })
       }
     })
   }
 
-  var signin = function (req, res, next) {
+  let signin = (req, res, next) => {
     // Look up the user
-    User.findOne({email: req.body.email || ''}, function (err, user) {
+    User.findOne({email: req.body.email || ''}, (err, user) => {
       if (err) {
         return next(err)
       }
@@ -59,7 +59,7 @@ var userController = function (User) {
         return res.send(404, 'User not found, or password incorrect')
       }
 
-      bcrypt.compare(req.body.password, user.password, function (err, result) {
+      bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (err) {
           return next(err)
         }
@@ -69,15 +69,15 @@ var userController = function (User) {
         }
 
         // Generate a JWT
-        var jwt = generateJwtResponse(user)
+        let token = generateJwtResponse(user)
 
-        // send the jwt along with the user object
-        res.send(jwt)
+        // send the token along with the user object
+        res.send(token)
       })
     })
   }
 
-  var changePassword = function (req, res, next) {
+  let changePassword = (req, res, next) => {
     // Validate fields
     if (req.body.newPassword !== req.body.confirmNewPassword) {
       return res.send(403, 'New password and confirm new password must match.')
@@ -88,7 +88,7 @@ var userController = function (User) {
     }
 
     // Look up the user
-    User.findById(req.user._id, function (err, user) {
+    User.findById(req.user._id, (err, user) => {
       if (err) {
         return next(err)
       }
@@ -97,7 +97,7 @@ var userController = function (User) {
         return next(new Error('Logged in user not found in users collection.'))
       }
 
-      bcrypt.compare(req.body.currentPassword, user.password, function (err, result) {
+      bcrypt.compare(req.body.currentPassword, user.password, (err, result) => {
         if (err) {
           return next(err)
         }
@@ -107,16 +107,16 @@ var userController = function (User) {
         }
 
         // Hash the new password
-        hashPassword(req.body.newPassword, function (err, hash) {
+        hashPassword(req.body.newPassword, (err, hash) => {
           if (err) {
             return next(err)
           }
           user.password = hash
-          user.save(function (err) {
+          user.save((err) => {
             if (err) {
               return next(err)
             }
-            // Add the jwt to the res/
+            // Add the token to the res/
             res.send('Password updated')
           })
         })
@@ -124,15 +124,15 @@ var userController = function (User) {
     })
   }
 
-  var requireSignIn = function (req, res, next) {
+  let requireSignIn = (req, res, next) => {
     // Check the header for an auth token
     // check header or url parameters or post parameters for token
-    var token = (req.body ? req.body.token : null) || req.query.token || req.headers['x-access-token']
+    let token = (req.body ? req.body.token : null) || req.query.token || req.headers['x-access-token']
     if (!token) {
       return res.send(403, 'No access token provided.')
     }
 
-    jwt.verify(token, config.secretKey, function (err, decoded) {
+    jwt.verify(token, config.secretKey, (err, decoded) => {
       if (err) {
         return next(err)
       }
@@ -143,17 +143,17 @@ var userController = function (User) {
     })
   }
 
-  var authorizeFb = function (req, res, next) {
-    var url
-    var fbInfo
+  let authorizeFb = (req, res, next) => {
+    let request = require('request')
+    let util = require('util')
 
     if (!req.body.accessToken) {
       return next(new Error('No facebook access token supplied'))
     }
 
-    url = util.format(config.fbApi, req.body.accessToken)
+    let url = util.format(config.fbApi, req.body.accessToken)
 
-    request(url, function (error, response, body) {
+    request(url, (error, response, body) => {
       if (error) {
         return next(error)
       }
@@ -162,16 +162,16 @@ var userController = function (User) {
         return next(new Error('FB API returned status code: ' + response.status))
       }
 
-      fbInfo = JSON.parse(body)
+      let fbInfo = JSON.parse(body)
 
-      User.findOne({externalId: fbInfo.id, loginType: 'fb'}, function (err, user) {
+      User.findOne({externalId: fbInfo.id, loginType: 'fb'}, (err, user) => {
         if (err) {
           return next(err)
         }
 
         if (!user) {
           // Need to create a new user
-          var newUser = new User({
+          let newUser = new User({
             name: fbInfo.name,
             email: fbInfo.email,
             password: 'not set',
@@ -180,36 +180,36 @@ var userController = function (User) {
             roles: ['user']
           })
 
-          newUser.save(function (err, newUser) {
+          newUser.save((err, newUser) => {
             if (err) {
               console.log(err)
               return next(err)
             }
 
-            // generate a jwt token
-            var jwt = generateJwtResponse(newUser)
+            // generate a token token
+            let token = generateJwtResponse(newUser)
 
-            // send the jwt, and the user
-            res.send(201, jwt)
+            // send the token, and the user
+            res.send(201, token)
           })
         } else {
           // Generate a JWT
-          var jwt = generateJwtResponse(user)
+          let token = generateJwtResponse(user)
 
-          // send the jwt along with the user object
-          res.send(jwt)
+          // send the token along with the user object
+          res.send(token)
         }
       })
     })
   }
 
   function hashPassword (password, callback) {
-    bcrypt.genSalt(10, function (err, salt) {
+    bcrypt.genSalt(10, (err, salt) => {
       if (err) {
         callback(err, null)
       }
 
-      bcrypt.hash(password, salt, function (err, hash) {
+      bcrypt.hash(password, salt, (err, hash) => {
         callback(err, hash)
       })
     })
@@ -222,7 +222,7 @@ var userController = function (User) {
       // We don't send passwords in the token
       delete user.password
     }
-    var token = jwt.sign(user, config.secretKey, { expiresIn: '30days' })
+    let token = jwt.sign(user, config.secretKey, { expiresIn: '30days' })
     return {
       token: token,
       user: {
@@ -236,11 +236,11 @@ var userController = function (User) {
   }
 
   return {
-    signup: signup,
-    signin: signin,
-    changePassword: changePassword,
-    authorizeFb: authorizeFb,
-    requireSignIn: requireSignIn
+    signup,
+    signin,
+    changePassword,
+    authorizeFb,
+    requireSignIn
   }
 }
 

@@ -1,31 +1,33 @@
-var seedDataLoader = (function () {
-  var loadData = function (emails, file, db, next) {
-    var fs = require('fs')
-    var items = db.collection('items')
-    var categories = db.collection('categories')
-    var users = db.collection('users')
-    var seedData = JSON.parse(fs.readFileSync(file, 'utf8'))
+'use strict'
 
-    users.find({email: {$in: emails}}).toArray(function (err, usersResult) {
+let seedDataLoader = (() => {
+  let loadData = (emails, file, db, next) => {
+    let fs = require('fs')
+    let items = db.collection('items')
+    let categories = db.collection('categories')
+    let users = db.collection('users')
+    let seedData = JSON.parse(fs.readFileSync(file, 'utf8'))
+
+    users.find({email: {$in: emails}}).toArray((err, usersResult) => {
       if (err || !usersResult || usersResult.length < emails.length) {
         console.log('ERROR: Did not find the seeded user data.')
         return next()
       }
 
-      categories.find().toArray(function (err, categoriesResult) {
+      categories.find().toArray((err, categoriesResult) => {
         if (err || !categoriesResult || categoriesResult.length < 4) {
           console.log('ERROR: Did not find all the categories.')
           return next()
         }
 
-        seedData.forEach(function (item) {
-          var userFound = usersResult.filter(function (singleUser) {
+        seedData.forEach((item) => {
+          let userFound = usersResult.filter((singleUser) => {
             if (singleUser.email === item.user) {
               return singleUser
             }
           })
 
-          var categoryIdFinder = categoriesResult.filter(function (singleCategory) {
+          let categoryIdFinder = categoriesResult.filter((singleCategory) => {
             if (singleCategory.name === item.category) {
               return singleCategory
             }
@@ -49,18 +51,18 @@ var seedDataLoader = (function () {
     })
   }
 
-  var removeData = function (emails, db, next) {
-    var items = db.collection('items')
-    var users = db.collection('users')
-    var userIds = []
+  let removeData = (emails, db, next) => {
+    let items = db.collection('items')
+    let users = db.collection('users')
+    let userIds = []
 
-    users.find({email: {$in: emails}}).toArray(function (err, usersResult) {
+    users.find({email: {$in: emails}}).toArray((err, usersResult) => {
       if (err || !usersResult || usersResult.length !== emails.length) {
         console.log('ERROR: Did not find the seeded user data.')
         return next()
       }
 
-      usersResult.forEach(function (currentUser) {
+      usersResult.forEach((currentUser) => {
         userIds.push(currentUser._id)
       })
 

@@ -1,6 +1,8 @@
-exports.up = function (db, next) {
-  var users = db.collection('users')
-  var seedData = [
+'use strict'
+
+exports.up = (db, next) => {
+  let users = db.collection('users')
+  let seedData = [
     {
       name: 'Brian Tester',
       email: 'b@trackmytries.com',
@@ -24,7 +26,7 @@ exports.up = function (db, next) {
     }
   ]
 
-  users.insert(seedData, function (err) {
+  users.insert(seedData, (err) => {
     if (err) {
       return next(err)
     }
@@ -32,9 +34,9 @@ exports.up = function (db, next) {
   })
 }
 
-exports.down = function (db, next) {
-  var users = db.collection('users')
-  users.remove({}, function (err) {
+exports.down = (db, next) => {
+  let users = db.collection('users')
+  users.remove({}, (err) => {
     if (err) {
       return next(err)
     }

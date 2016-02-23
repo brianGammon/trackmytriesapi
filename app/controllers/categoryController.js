@@ -1,8 +1,10 @@
-var categoryController = function (Category) {
-  var insert = function (req, res, next) {
-    var category = new Category(req.body)
+'use strict'
 
-    category.save(function (err) {
+let categoryController = (Category) => {
+  let insert = (req, res, next) => {
+    let category = new Category(req.body)
+
+    category.save((err) => {
       if (err) {
         return next(err)
       }
@@ -10,8 +12,8 @@ var categoryController = function (Category) {
     })
   }
 
-  var getAll = function (req, res, next) {
-    Category.find(function (err, categories) {
+  let getAll = (req, res, next) => {
+    Category.find((err, categories) => {
       if (err) {
         return next(err)
       }
@@ -19,8 +21,8 @@ var categoryController = function (Category) {
     })
   }
 
-  var getById = function (req, res, next) {
-    Category.findById(req.params.categoryId, function (err, category) {
+  let getById = (req, res, next) => {
+    Category.findById(req.params.categoryId, (err, category) => {
       if (err) {
         return next(err)
       }
@@ -34,12 +36,12 @@ var categoryController = function (Category) {
     })
   }
 
-  var update = function (req, res, next) {
+  var update = (req, res, next) => {
     req.category.name = req.body.name
     req.category.description = req.body.description
     req.category.valueType = req.body.valueType
     req.category.goalType = req.body.goalType
-    req.category.save(function (err) {
+    req.category.save((err) => {
       if (err) {
         return next(err)
       }
@@ -47,9 +49,9 @@ var categoryController = function (Category) {
     })
   }
 
-  var deleteCategory = function (req, res, next) {
+  var deleteCategory = (req, res, next) => {
     console.log('Calling remove')
-    req.category.remove(function (err) {
+    req.category.remove((err) => {
       console.log('Calling res.send')
       if (err) {
         return next(err)
@@ -60,10 +62,10 @@ var categoryController = function (Category) {
   }
 
   return {
-    insert: insert,
-    getAll: getAll,
-    getById: getById,
-    update: update,
+    insert,
+    getAll,
+    getById,
+    update,
     delete: deleteCategory
   }
 }

@@ -1,14 +1,9 @@
-var nconf = require('nconf')
-var util = require('util')
-var host
-var dbname
-var port
-var username
-var password
-var connectionString
+'use strict'
 
-// Loap up our config settings
-// Argv & server ENV override the file
+let nconf = require('nconf')
+
+// Load up our config settings
+// argv & server ENV override the file
 // env.json goes in the root of the project where package.json is
 // Defaults are the fallback
 nconf.argv().env().file({ file: 'env.json' })
@@ -24,16 +19,15 @@ nconf.argv().env().file({ file: 'env.json' })
     'FB_API': 'https://graph.facebook.com/me?access_token=%s&fields=email,name'
   })
 
-host = nconf.get('MONGO_HOST')
-dbname = nconf.get('MONGO_DBNAME')
-port = nconf.get('MONGO_PORT')
-username = nconf.get('MONGO_USER')
-password = nconf.get('MONGO_PWD')
+let host = nconf.get('MONGO_HOST')
+let dbname = nconf.get('MONGO_DBNAME')
+let port = nconf.get('MONGO_PORT')
+let username = nconf.get('MONGO_USER')
+let password = nconf.get('MONGO_PWD')
 
-connectionString = 'mongodb://localhost/' + dbname
+let connectionString = `mongodb://localhost/${dbname}`
 if (host !== 'localhost') {
-  connectionString = util.format(
-    'mongodb://%s:%s@%s:%s/%s', username, password, host, port, dbname)
+  connectionString = `mongodb://${username}:${password}@${host}:${port}/${dbname}`
 }
 
 module.exports = {
@@ -41,5 +35,5 @@ module.exports = {
   serverPort: nconf.get('PORT'),
   secretKey: nconf.get('JWT_SECRET'),
   fbApi: nconf.get('FB_API'),
-  connectionString: connectionString
+  connectionString
 }

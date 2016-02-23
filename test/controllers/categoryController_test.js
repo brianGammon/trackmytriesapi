@@ -1,83 +1,49 @@
 /* globals describe, it, beforeEach */
 'use strict'
 
-var chai = require('chai')
-var expect = chai.expect
-var sinon = require('sinon')
-var sinonChai = require('sinon-chai')
-
+let chai = require('chai')
+let expect = chai.expect
+let sinon = require('sinon')
+let sinonChai = require('sinon-chai')
 chai.use(sinonChai)
 
-describe('Category Controller Tests', function () {
-  var controller
-  var req
-  var res
-  var categories
-  var Category
-  var saveStub = sinon.stub()
-  var next = sinon.spy()
+describe('Category Controller Tests', () => {
+  let req
+  let res
+  let categories
+  let saveStub = sinon.stub()
+  let next = sinon.spy()
+  let controller = require('../../app/controllers/categoryController')
+  let CategoryTestHelper = require('../helpers/categoryTestHelper')
 
-  beforeEach(function () {
-    req = {
-      body: {
-        name: 'Test',
-        description: 'This is for the unit tests',
-        goalType: 'test',
-        valueType: 'test'
-      },
-      category: {
-        name: 'NameBeforeUpdate',
-        description: 'This is the desc before updating',
-        goalType: 'test',
-        valueType: 'test',
-        save: sinon.stub(),
-        remove: sinon.stub()
-      },
-      params: {}
-    }
-
-    res = {
-      status: sinon.spy(),
-      send: sinon.spy()
-    }
-
-    categories = [
-      {
-        _id: 'abc123',
-        name: 'sit ups',
-        description: 'Number of sit ups in 2 minutes',
-        goalType: 'more',
-        valueType: 'number'
-      },
-      {
-        _id: 'abc124',
-        name: 'push ups',
-        description: 'Number of push ups in 2 minutes',
-        goalType: 'more',
-        valueType: 'number'
-      }
-    ]
-
-    Category = function () {
+  class Category {
+    constructor () {
       this.find = sinon.stub()
       this.findById = sinon.stub()
       this.save = saveStub
     }
+  }
 
-    controller = require('../../app/controllers/categoryController')
+  beforeEach(() => {
+    // Reset our test data each time
+    let helper = new CategoryTestHelper()
+    req = helper.req
+    res = helper.res
+    categories = helper.categories
 
+    // Reset the stubs
     next.reset()
     saveStub.reset()
   })
 
-  describe('get all categories tests', function () {
-    var model
+  describe('get all categories tests', () => {
+    let model
 
-    beforeEach(function () {
+    beforeEach(() => {
       model = new Category(null)
     })
 
-    it('should return all categories', function () {
+    it('should return all categories', () => {
       model.find.yields(null, categories)
       controller(model).getAll(req, res, next)
 
@@ -85,7 +51,7 @@ describe('Category Controller Tests', function () {
       expect(next).to.not.have.been.called
     })
 
-    it('should throw error if find() fails on model', function () {
+    it('should throw error if find() fails on model', () => {
       model.find.yields('ERROR', null)
       controller(model).getAll(req, res, next)
 
@@ -94,14 +60,14 @@ describe('Category Controller Tests', function () {
     })
   })
 
-  describe('get single category by ID tests', function () {
-    var model
+  describe('get single category by ID tests', () => {
+    let model
 
-    beforeEach(function () {
+    beforeEach(() => {
       model = new Category(null)
     })
 
-    it('returns a category by ID', function () {
+    it('returns a category by ID', () => {
       req.params = { categoryId: 12345 }
       model.findById.yields(null, categories[0])
       controller(model).getById(req, res, next)
@@ -111,7 +77,7 @@ describe('Category Controller Tests', function () {
       expect(next).to.have.been.called
     })
 
-    it('should return 404 if requested category does not exist', function () {
+    it('should return 404 if requested category does not exist', () => {
       req.params = { categoryId: 54321 }
       model.findById.yields(null, null)
       controller(model).getById(req, res, next)
@@ -121,7 +87,7 @@ describe('Category Controller Tests', function () {
       expect(next).to.not.have.been.called
     })
 
-    it('should throw an error if find function errors out', function () {
+    it('should throw an error if find function errors out', () => {
       req.params = { categoryId: 12345 }
       model.findById.yields('ERROR', null)
       controller(model).getById(req, res, next)
@@ -132,8 +98,8 @@ describe('Category Controller Tests', function () {
     })
   })
 
-  describe('insert new category tests', function () {
-    it('should save new category', function () {
+  describe('insert new category tests', () => {
+    it('should save new category', () => {
       saveStub.yields(null)
       controller(Category).insert(req, res, next)
 
@@ -141,7 +107,7 @@ describe('Category Controller Tests', function () {
       expect(res.send).to.have.been.calledWith(201)
     })
 
-    it('should call next with error if model fails to save', function () {
+    it('should call next with error if model fails to save', () => {
       saveStub.yields('ERROR')
       controller(Category).insert(req, res, next)
 
@@ -151,8 +117,8 @@ describe('Category Controller Tests', function () {
     })
   })
 
-  describe('update existing category tests', function () {
-    it('should update category', function () {
+  describe('update existing category tests', () => {
+    it('should update category', () => {
       req.category.save.yields(null)
       controller(Category).update(req, res, next)
 
@@ -164,7 +130,7 @@ describe('Category Controller Tests', function () {
       expect(req.category).to.be.eql(req.body)
     })
 
-    it('should call next with an error if save fails on model', function () {
+    it('should call next with an error if save fails on model', () => {
       req.category.save.yields('ERROR')
       controller(Category).update(req, res, next)
 
@@ -174,8 +140,8 @@ describe('Category Controller Tests', function () {
     })
   })
 
-  describe('delete() tests', function () {
-    it('should delete the category based on ID passed in', function () {
+  describe('delete() tests', () => {
+    it('should delete the category based on ID passed in', () => {
       req.category.remove.yields(null)
       controller(Category).delete(req, res, next)
 
@@ -184,7 +150,7 @@ describe('Category Controller Tests', function () {
       // expect(req.category).to.be.eql(req.body)
     })
 
-    it('should call next with an error if delete fails on model', function () {
+    it('should call next with an error if delete fails on model', () => {
       req.category.remove.yields('ERROR')
       controller(Category).delete(req, res, next)
 

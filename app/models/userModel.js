@@ -1,7 +1,9 @@
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
+'use strict'
 
-var userSchema = new Schema({
+let mongoose = require('mongoose')
+let Schema = mongoose.Schema
+
+let userSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -30,7 +32,7 @@ var userSchema = new Schema({
   }]
 })
 
-userSchema.pre('save', function (next) {
+userSchema.pre('save', (next) => {
   if (this.roles.length === 0) {
     this.roles.push('user')
   }

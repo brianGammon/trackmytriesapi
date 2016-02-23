@@ -1,40 +1,34 @@
+'use strict'
+
 /* eslint node/no-unpublished-require: 0 */
-var gulp = require('gulp')
-var $ = require('gulp-load-plugins')()
-var nodemonIgnore = ['node_modules/**', 'migrations/**', 'sample_data/**', 'coverage/**']
-var unitTestPaths = [
+let gulp = require('gulp')
+let $ = require('gulp-load-plugins')()
+
+let unitTestPaths = [
   'test/**/*_test.js'
 ]
-var lintPaths = [
-  '**/*.js', '!node_modules/**', '!sample_data/**', '!coverage/**'
-]
-var watchPaths = [
-  '**/*.js', '!node_modules/**', '!migrations/**', '!sample_data/**', '!coverage/**'
-]
-var coverageJsPaths = [
-  '**/*.js', '!node_modules/**', '!migrations/**', '!sample_data/**', '!coverage/**', '!test/**', '!gulpFile.js'
-]
 
-function mochaPipe () {
-  return $.mocha({ reporter: 'spec', growl: true })
-}
+gulp.task('default', ['unitTest'], () => {
+  let nodemonIgnore = ['node_modules/**', 'migrations/**', 'sample_data/**', 'coverage/**']
 
-gulp.task('default', ['unitTest'], function () {
   $.nodemon({
     script: 'app/server.js',
     ext: 'js',
     ignore: nodemonIgnore
   })
-  .on('restart', function () {
+  .on('restart', () => {
     console.log('Restarting...')
   })
 })
 
-gulp.task('lint', function () {
-  var formatter = require('eslint-path-formatter')
+gulp.task('lint', () => {
+  let formatter = require('eslint-path-formatter')
+  let lintPaths = [
+    '**/*.js', '!node_modules/**', '!sample_data/**', '!coverage/**'
+  ]
 
   return gulp.src(lintPaths)
-    .pipe($.plumber({errorHandler: function (err) {
+    .pipe($.plumber({errorHandler: (err) => {
       $.notify.onError({
         title: 'Error linting at ' + err.plugin,
         subtitle: ' ', // overrides defaults
@@ -51,18 +45,26 @@ gulp.task('lint', function () {
 
 gulp.task('test', ['unitTest', 'watchJs'])
 
-gulp.task('watchJs', function () {
-  $.watch(watchPaths, {read: false}, function () {
+gulp.task('watchJs', () => {
+  let watchPaths = [
+    '**/*.js', '!node_modules/**', '!migrations/**', '!sample_data/**', '!coverage/**'
+  ]
+
+  $.watch(watchPaths, {read: false}, () => {
     gulp.start('unitTest')
   })
 })
 
-gulp.task('unitTest', ['lint'], function () {
+gulp.task('unitTest', ['lint'], () => {
   return gulp.src(unitTestPaths, {read: false})
     .pipe(mochaPipe())
 })
 
-gulp.task('coverageSetup', function () {
+gulp.task('coverageSetup', () => {
+  let coverageJsPaths = [
+    '**/*.js', '!node_modules/**', '!migrations/**', '!sample_data/**', '!coverage/**', '!test/**', '!gulpFile.js'
+  ]
+
   return gulp.src(coverageJsPaths)
     // Covering files
     .pipe($.istanbul({includeUntested: true}))
@@ -70,7 +72,7 @@ gulp.task('coverageSetup', function () {
     .pipe($.istanbul.hookRequire())
 })
 
-gulp.task('coverage', ['coverageSetup'], function () {
+gulp.task('coverage', ['coverageSetup'], () => {
   return gulp.src(unitTestPaths)
     .pipe(mochaPipe())
     // Creating the reports after tests ran
@@ -78,3 +80,7 @@ gulp.task('coverage', ['coverageSetup'], function () {
     // Enforce a coverage of at least 90%
     .pipe($.istanbul.enforceThresholds({ thresholds: { global: 10 } }))
 })
+
+function mochaPipe () {
+  return $.mocha({ reporter: 'spec', growl: true })
+}

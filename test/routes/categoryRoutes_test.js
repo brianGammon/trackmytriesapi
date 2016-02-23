@@ -5,6 +5,6 @@
 //     expect = chai.expect,
 //     sinon = require('sinon');
 
-describe('Category Routes Tests', function () {
+describe('Category Routes Tests', () => {
   it('should set up routes')
 })

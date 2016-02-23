@@ -1,6 +1,8 @@
-exports.up = function (db, next) {
-  var categories = db.collection('categories')
-  var seedData = [
+'use strict'
+
+exports.up = (db, next) => {
+  let categories = db.collection('categories')
+  let seedData = [
     {
       name: 'Sit Ups',
       description: 'Number of sit ups completed in 2 minutes',
@@ -29,7 +31,7 @@ exports.up = function (db, next) {
   categories.insert(seedData, next)
 }
 
-exports.down = function (db, next) {
-  var categories = db.collection('categories')
+exports.down = (db, next) => {
+  let categories = db.collection('categories')
   categories.remove({}, next)
 }

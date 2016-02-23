@@ -1,11 +1,13 @@
-var itemController = function (Item, Category) {
-  var getItems = function (req, res, next) {
-    var query = {category: req.query.categoryId, user: req.user._id}
+'use strict'
+
+let itemController = (Item, Category) => {
+  let getItems = (req, res, next) => {
+    let query = {category: req.query.categoryId, user: req.user._id}
     Item.find(query)
       .populate('category')
       .populate('user', 'email')
       .sort('-itemDateTime')
-      .exec(function (err, items) {
+      .exec((err, items) => {
         if (err) {
           return next(err)
         }
@@ -13,11 +15,11 @@ var itemController = function (Item, Category) {
       })
   }
 
-  var getItemById = function (req, res, next) {
+  let getItemById = (req, res, next) => {
     Item.findById(req.params.itemId)
       .populate('category')
       .populate('user', 'email')
-      .exec(function (err, item) {
+      .exec((err, item) => {
         if (err) {
           return next(err)
         }
@@ -31,9 +33,9 @@ var itemController = function (Item, Category) {
       })
   }
 
-  var addItem = function (req, res, next) {
-    var item = new Item(req.body)
-    item.save(function (err, newItem) {
+  let addItem = (req, res, next) => {
+    let item = new Item(req.body)
+    item.save((err, newItem) => {
       if (err) {
         return next(err)
       }
@@ -41,14 +43,14 @@ var itemController = function (Item, Category) {
     })
   }
 
-  var updateItem = function (req, res, next) {
+  let updateItem = (req, res, next) => {
     // maps the fields
     req.item.user = req.body.user
     req.item.category = req.body.category
     req.item.itemDateTime = req.body.itemDateTime
     req.item.valueNumber = req.body.valueNumber
     req.item.notes = req.body.notes
-    req.item.save(function (err, item) {
+    req.item.save((err, item) => {
       if (err) {
         return next(err)
       }
@@ -56,8 +58,8 @@ var itemController = function (Item, Category) {
     })
   }
 
-  var deleteItem = function (req, res, next) {
-    req.item.remove(function (err) {
+  let deleteItem = (req, res, next) => {
+    req.item.remove((err) => {
       if (err) {
         return next(err)
       }
@@ -65,13 +67,13 @@ var itemController = function (Item, Category) {
     })
   }
 
-  var getStats = function (req, res, next) {
-    var query = {}
+  let getStats = (req, res, next) => {
+    let query = {}
 
     if (req.query.categoryId) {
       query._id = req.query.categoryId
     }
-    Category.find(query).lean().exec(function (err, categories) {
+    Category.find(query).lean().exec((err, categories) => {
       if (err) {
         return next(err)
       }
@@ -81,8 +83,8 @@ var itemController = function (Item, Category) {
       }
 
       // Loop over the category or categories and query Item for the best
-      var loopCounter = 0
-      categories.forEach(function (category) {
+      let loopCounter = 0
+      categories.forEach((category) => {
         loopCounter++
 
         // Pull all items from category, ordered by itemDateTime
@@ -90,7 +92,7 @@ var itemController = function (Item, Category) {
           .lean()
           .sort({itemDateTime: -1})
           // .populate('category')
-          .exec(function (err, allItems) {
+          .exec((err, allItems) => {
             if (err) {
               return next(err)
             }
@@ -101,8 +103,8 @@ var itemController = function (Item, Category) {
               category.stats.latest = allItems[0]
 
               // Resort the items to find the pr
-              var sortDirection = -1
-              var prQuery = Item.findOne({category: category._id, user: req.user._id})
+              let sortDirection = -1
+              let prQuery = Item.findOne({category: category._id, user: req.user._id})
 
               // set the sort direction based on the goalType
               if (category.goalType === 'less') {
@@ -112,7 +114,7 @@ var itemController = function (Item, Category) {
               prQuery.sort({valueNumber: sortDirection, itemDateTime: 1})
 
               // Query for best entry in this category
-              prQuery.exec(function (err, bestItem) {
+              prQuery.exec((err, bestItem) => {
                 if (err) {
                   return next(err)
                 }
@@ -148,7 +150,7 @@ var itemController = function (Item, Category) {
     })
   }
 
-  var requireAuthorization = function (req, res, next) {
+  let requireAuthorization = (req, res, next) => {
     // TODO: Not sure why I need to toString on the item.user._id
     if (req.user._id !== req.item.user._id.toString()) {
       return res.send(403, 'Not authorized for that Item')
@@ -157,13 +159,13 @@ var itemController = function (Item, Category) {
   }
 
   return {
-    addItem: addItem,
-    getItems: getItems,
-    getItemById: getItemById,
-    getStats: getStats,
-    updateItem: updateItem,
-    deleteItem: deleteItem,
-    requireAuthorization: requireAuthorization
+    addItem,
+    getItems,
+    getItemById,
+    getStats,
+    updateItem,
+    deleteItem,
+    requireAuthorization
   }
 }
 

@@ -1,14 +1,16 @@
-var categoryRoutes = function (Category, User) {
-  var Router = require('restify-router').Router
-  var categoryRouter = new Router()
+'use strict'
 
-  var categoryController = require('../controllers/categoryController')(Category)
-  var userController = require('../controllers/userController')(User)
+let categoryRoutes = (Category, User) => {
+  let Router = require('restify-router').Router
+  let categoryRouter = new Router()
+
+  let categoryController = require('../controllers/categoryController')(Category)
+  let userController = require('../controllers/userController')(User)
 
   categoryRouter.post('/', userController.requireSignIn, categoryController.insert)
   categoryRouter.get('/', categoryController.getAll)
 
-  categoryRouter.get('/:categoryId', categoryController.getById, function (req, res) {
+  categoryRouter.get('/:categoryId', categoryController.getById, (req, res) => {
     res.json(req.category)
   })
   categoryRouter.put('/:categoryId', categoryController.getById, userController.requireSignIn, categoryController.update)

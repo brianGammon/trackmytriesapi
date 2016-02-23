@@ -1,8 +1,10 @@
-var userRoutes = function (User) {
-  var Router = require('restify-router').Router
-  var userRouter = new Router()
+'use strict'
 
-  var userController = require('../controllers/userController')(User)
+let userRoutes = (User) => {
+  let Router = require('restify-router').Router
+  let userRouter = new Router()
+
+  let userController = require('../controllers/userController')(User)
 
   userRouter.post('/password', userController.requireSignIn, userController.changePassword)
   userRouter.post('/signup', userController.signup)

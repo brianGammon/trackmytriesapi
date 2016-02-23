@@ -1,9 +1,11 @@
-exports.up = function (db, next) {
-  var loader = require('../sample_data/seedDataLoader')
+'use strict'
+
+exports.up = (db, next) => {
+  let loader = require('../sample_data/seedDataLoader')
   loader.loadData(['b@trackmytries.com', 'r@trackmytries.com'], './sample_data/items-test-data.json', db, next)
 }
 
-exports.down = function (db, next) {
-  var loader = require('../sample_data/seedDataLoader')
+exports.down = (db, next) => {
+  let loader = require('../sample_data/seedDataLoader')
   loader.removeData(['b@trackmytries.com', 'r@trackmytries.com'], db, next)
 }
