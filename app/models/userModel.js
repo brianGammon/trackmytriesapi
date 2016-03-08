@@ -32,7 +32,7 @@ let userSchema = new Schema({
   }]
 })
 
-userSchema.pre('save', (next) => {
+userSchema.pre('save', function (next) {
   if (this.roles.length === 0) {
     this.roles.push('user')
   }
