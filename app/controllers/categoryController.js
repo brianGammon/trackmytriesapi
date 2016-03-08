@@ -50,9 +50,7 @@ let categoryController = (Category) => {
   }
 
   var deleteCategory = (req, res, next) => {
-    console.log('Calling remove')
     req.category.remove((err) => {
-      console.log('Calling res.send')
       if (err) {
         return next(err)
       }

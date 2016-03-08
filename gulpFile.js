@@ -28,7 +28,8 @@ gulp.task('lint', () => {
   ]
 
   return gulp.src(lintPaths)
-    .pipe($.plumber({errorHandler: (err) => {
+    // Cannot use arrow function in this case
+    .pipe($.plumber({errorHandler: function (err) {
       $.notify.onError({
         title: 'Error linting at ' + err.plugin,
         subtitle: ' ', // overrides defaults
@@ -43,7 +44,7 @@ gulp.task('lint', () => {
     .pipe($.eslint.failOnError())
 })
 
-gulp.task('test', ['unitTest', 'watchJs'])
+gulp.task('test', ['coverage', 'watchJs'])
 
 gulp.task('watchJs', () => {
   let watchPaths = [
@@ -51,7 +52,7 @@ gulp.task('watchJs', () => {
   ]
 
   $.watch(watchPaths, {read: false}, () => {
-    gulp.start('unitTest')
+    gulp.start('coverage')
   })
 })
 
@@ -72,8 +73,8 @@ gulp.task('coverageSetup', () => {
     .pipe($.istanbul.hookRequire())
 })
 
-gulp.task('coverage', ['coverageSetup'], () => {
-  return gulp.src(unitTestPaths)
+gulp.task('coverage', ['coverageSetup', 'lint'], () => {
+  return gulp.src(unitTestPaths, {read: false})
     .pipe(mochaPipe())
     // Creating the reports after tests ran
     .pipe($.istanbul.writeReports())

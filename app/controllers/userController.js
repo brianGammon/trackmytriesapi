@@ -5,17 +5,19 @@ let userController = (User) => {
   let bcrypt = require('bcryptjs')
   let config = require('../config.js')
 
-  console.log(config.secretKey)
-
   let signup = (req, res, next) => {
     if (req.body.password !== req.body.confirmPassword) {
-      return res.send(403, 'New password and confirm new password must match.')
+      return res.send(403, 'New password and confirm new password must match')
+    }
+
+    if (!req.body.email) {
+      return res.send(403, 'User email is required')
     }
 
     let newUser = new User(req.body)
 
     // check for uniqueness
-    User.findOne({email: req.body.email || ''}, (err, user) => {
+    User.findOne({email: req.body.email}, (err, user) => {
       if (err) {
         return next(err)
       }
@@ -42,6 +44,7 @@ let userController = (User) => {
 
             // send the token, and the user
             res.send(201, token)
+            next()
           })
         })
       }
@@ -49,14 +52,19 @@ let userController = (User) => {
   }
 
   let signin = (req, res, next) => {
+    if (!req.body.email) {
+      return res.send(403, 'User email is required')
+    }
+
     // Look up the user
-    User.findOne({email: req.body.email || ''}, (err, user) => {
+    User.findOne({email: req.body.email}, (err, user) => {
       if (err) {
         return next(err)
       }
 
       if (!user) {
-        return res.send(404, 'User not found, or password incorrect')
+        res.send(404, 'User not found, or password incorrect')
+        return next()
       }
 
       bcrypt.compare(req.body.password, user.password, (err, result) => {
@@ -65,14 +73,16 @@ let userController = (User) => {
         }
 
         if (!result) {
-          return res.send(404, 'User not found, or password incorrect')
+          res.send(404, 'User not found, or password incorrect')
+          return next()
         }
 
         // Generate a JWT
         let token = generateJwtResponse(user)
 
         // send the token along with the user object
-        res.send(token)
+        res.send(200, token)
+        next()
       })
     })
   }
@@ -80,7 +90,8 @@ let userController = (User) => {
   let changePassword = (req, res, next) => {
     // Validate fields
     if (req.body.newPassword !== req.body.confirmNewPassword) {
-      return res.send(403, 'New password and confirm new password must match.')
+      res.send(403, 'New password and confirm new password must match.')
+      return next()
     }
 
     if (!req.body.currentPassword) {
@@ -103,7 +114,8 @@ let userController = (User) => {
         }
 
         if (!result) {
-          return res.send(403, 'Current password incorrect')
+          res.send(403, 'Current password incorrect')
+          return next()
         }
 
         // Hash the new password
@@ -117,7 +129,8 @@ let userController = (User) => {
               return next(err)
             }
             // Add the token to the res/
-            res.send('Password updated')
+            res.send(200, 'Password updated')
+            next()
           })
         })
       })
@@ -127,9 +140,13 @@ let userController = (User) => {
   let requireSignIn = (req, res, next) => {
     // Check the header for an auth token
     // check header or url parameters or post parameters for token
-    let token = (req.body ? req.body.token : null) || req.query.token || req.headers['x-access-token']
+    let token = (req.body ? req.body.token : null) ||
+      (req.query ? req.query.token : null) ||
+      (req.headers ? req.headers['x-access-token'] : null)
+
     if (!token) {
-      return res.send(403, 'No access token provided.')
+      res.send(403, 'No access token provided.')
+      return next()
     }
 
     jwt.verify(token, config.secretKey, (err, decoded) => {
@@ -159,11 +176,10 @@ let userController = (User) => {
       }
 
       if (response.statusCode !== 200) {
-        return next(new Error('FB API returned status code: ' + response.status))
+        return next(new Error('FB API returned status code: ' + response.statusCode))
       }
 
       let fbInfo = JSON.parse(body)
-
       User.findOne({externalId: fbInfo.id, loginType: 'fb'}, (err, user) => {
         if (err) {
           return next(err)
@@ -182,7 +198,6 @@ let userController = (User) => {
 
           newUser.save((err, newUser) => {
             if (err) {
-              console.log(err)
               return next(err)
             }
 
@@ -191,13 +206,15 @@ let userController = (User) => {
 
             // send the token, and the user
             res.send(201, token)
+            next()
           })
         } else {
           // Generate a JWT
           let token = generateJwtResponse(user)
 
           // send the token along with the user object
-          res.send(token)
+          res.send(200, token)
+          next()
         }
       })
     })
@@ -206,17 +223,17 @@ let userController = (User) => {
   function hashPassword (password, callback) {
     bcrypt.genSalt(10, (err, salt) => {
       if (err) {
-        callback(err, null)
+        return callback(err, null)
       }
 
       bcrypt.hash(password, salt, (err, hash) => {
-        callback(err, hash)
+        return callback(err, hash)
       })
     })
   }
 
   function generateJwtResponse (user) {
-    // strip the password
+    // user is assumed to be a Mongoose model, so need to make it a POJO
     user = user.toObject()
     if (user.password) {
       // We don't send passwords in the token

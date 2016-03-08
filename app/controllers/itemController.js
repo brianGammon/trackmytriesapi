@@ -11,7 +11,8 @@ let itemController = (Item, Category) => {
         if (err) {
           return next(err)
         }
-        res.send(items)
+        res.send(200, items)
+        next()
       })
   }
 
@@ -40,6 +41,7 @@ let itemController = (Item, Category) => {
         return next(err)
       }
       res.send(201, newItem)
+      next()
     })
   }
 
@@ -50,11 +52,12 @@ let itemController = (Item, Category) => {
     req.item.itemDateTime = req.body.itemDateTime
     req.item.valueNumber = req.body.valueNumber
     req.item.notes = req.body.notes
-    req.item.save((err, item) => {
+    req.item.save((err) => {
       if (err) {
         return next(err)
       }
-      res.send(item)
+      res.send(200, req.item)
+      next()
     })
   }
 
@@ -69,7 +72,6 @@ let itemController = (Item, Category) => {
 
   let getStats = (req, res, next) => {
     let query = {}
-
     if (req.query.categoryId) {
       query._id = req.query.categoryId
     }
@@ -83,10 +85,8 @@ let itemController = (Item, Category) => {
       }
 
       // Loop over the category or categories and query Item for the best
-      let loopCounter = 0
+      let loopCounter = categories.length
       categories.forEach((category) => {
-        loopCounter++
-
         // Pull all items from category, ordered by itemDateTime
         Item.find({category: category._id, user: req.user._id})
           .lean()
@@ -119,18 +119,18 @@ let itemController = (Item, Category) => {
                   return next(err)
                 }
 
-                if (bestItem) {
-                  category.stats.best = bestItem
-                }
+                category.stats.best = bestItem
 
                 // All the loops are done, so return
                 // Need to swap this out with async.js
                 loopCounter--
                 if (loopCounter === 0) {
                   if (req.query.categoryId) {
-                    return res.send(categories[0])
+                    res.send(200, categories[0])
+                    return next()
                   }
-                  return res.send(categories)
+                  res.send(200, categories)
+                  return next()
                 }
               })
             } else {
@@ -140,9 +140,11 @@ let itemController = (Item, Category) => {
               loopCounter--
               if (loopCounter === 0) {
                 if (req.query.categoryId) {
-                  return res.send(categories[0])
+                  res.send(200, categories[0])
+                  return next()
                 }
-                return res.send(categories)
+                res.send(200, categories)
+                next()
               }
             }
           })
