@@ -145,13 +145,13 @@ let userController = (User) => {
       (req.headers ? req.headers['x-access-token'] : null)
 
     if (!token) {
-      res.send(403, 'No access token provided.')
-      return next()
+      return res.send(401, new Error('No access token provided.'))
+      // return next('error happened')
     }
 
     jwt.verify(token, config.secretKey, (err, decoded) => {
       if (err) {
-        return next(err)
+        return res.send(401, err)
       }
 
 			// if everything is good, save to request for use in other routes

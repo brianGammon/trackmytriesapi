@@ -594,23 +594,23 @@ describe('User Controller Tests', function () {
       runRequiresSignInTest()
     })
 
-    it('should call return 403 and error message if no token is present', function () {
+    it('should call return 401 and error message if no token is present', function () {
       userController.requireSignIn(req, res, next)
-      expect(next).to.have.been.calledWith()
-      expect(next.args[0].length).to.equal(0)
-      expect(res.send).to.have.been.calledWith(403, 'No access token provided.')
+      expect(next).to.not.have.been.called
+      expect(res.send).to.have.been.calledWith(401, new Error('No access token provided.'))
     })
 
-    it('should call next with error if token fails to verify', function () {
+    it('should return 401 and error if token fails to verify', function () {
       req.body = {
         token: 'testJwtPart1.testJwtPart2.testJwtPart3'
       }
 
-      jwtMock.verify.yields('ERROR', null)
+      let error = new Error('ERROR')
+      jwtMock.verify.yields(error, null)
 
       userController.requireSignIn(req, res, next)
-      expect(next).to.have.been.calledWith('ERROR')
-      expect(res.send).to.not.have.been.called
+      expect(next).to.not.have.been.called
+      expect(res.send).to.have.been.calledWith(401, error)
     })
   })
 })
