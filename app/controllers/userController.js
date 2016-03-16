@@ -239,7 +239,7 @@ let userController = (User) => {
       // We don't send passwords in the token
       delete user.password
     }
-    let token = jwt.sign(user, config.secretKey, { expiresIn: '30days' })
+    let token = jwt.sign(user, config.secretKey, { expiresIn: config.tokenTtl })
     return {
       token: token,
       user: {

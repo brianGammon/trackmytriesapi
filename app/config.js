@@ -11,6 +11,7 @@ nconf.argv().env().file({ file: 'env.json' })
     'NAME': 'trackmytriesapi',
     'PORT': 8080,
     'JWT_SECRET': 'nconf.default.thisShouldBeSetInServerEnv',
+    'JWT_TTL': '30days',
     'MONGO_HOST': 'localhost',
     'MONGO_DBNAME': 'trackmytries-dev',
     'MONGO_PORT': 'ignoredIfLocalhost',
@@ -34,6 +35,7 @@ module.exports = {
   appName: nconf.get('NAME'),
   serverPort: nconf.get('PORT'),
   secretKey: nconf.get('JWT_SECRET'),
+  tokenTtl: nconf.get('JWT_TTL'),
   fbApi: nconf.get('FB_API'),
   connectionString
 }
